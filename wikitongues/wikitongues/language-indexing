@@ -2,6 +2,8 @@
 
 import scrapy
 from scrapy.crawler import CrawlerProcess
+import configparser
+import os
 
 from spiders.wikipedia_spider import WikipediaSpider
 
@@ -26,6 +28,14 @@ process = CrawlerProcess(
     }
 )
 
+config = configparser.ConfigParser()
+config.read(os.path.join(os.path.dirname(__file__), 'config', 'indexing.cfg'))
+sites = config.items('sites')
+for site in sites:
+    print(site)
+    print(site[1])
+print(sites)
+print("Yer, this is cool!")
 process.crawl(WikipediaSpider, languages)
 
 process.start()
