@@ -5,8 +5,19 @@ from scrapy.crawler import CrawlerProcess
 import configparser
 import os, sys, pkgutil, importlib
 
+#from spiders.wikipedia_spider import WikipediaSpider
+#from spiders import wikipedia_spider
+
 from language import Language
 
+languages = [
+    Language('sah', 'Sakha', 'https://en.wikipedia.org/wiki/Yakut_language'),
+    Language('nrf', 'Jèrriais', 'https://en.wikipedia.org/wiki/J%C3%A8rriais'),
+    Language('qwe', 'Quechua', 'https://en.wikipedia.org/wiki/Quechuan_languages'),
+    Language('nys', 'Nyungar', 'https://en.wikipedia.org/wiki/Nyungar_language'),
+    Language('xho', 'Xhosa', 'https://en.wikipedia.org/wiki/Xhosa_language'),
+    Language('dak', 'Sioux', 'https://en.wikipedia.org/wiki/Sioux_language')
+]
 
 process = CrawlerProcess(
     settings={
@@ -39,8 +50,8 @@ def process_site(site_tuple):
 config = configparser.ConfigParser()
 config.read(os.path.join(os.path.dirname(__file__), 'config', 'indexing.cfg'))
 sites = config.items('sites')
-start_all_crawls = input('Do you wish to crawl all spiders? (Y/N) ')
-#start_all_crawls = 'y'
+#start_all_crawls = input('Do you wish to crawl all spiders? (Y/N) ')
+start_all_crawls = 'y'
 if start_all_crawls.lower() == 'n':
     site_to_crawl = input('Which site would you like to crawl? ')
     for site in sites:
@@ -58,3 +69,10 @@ else:
     print('invalid input')
 
     
+#crawl all websites
+print(sites)
+print("Yer, this is cool!")
+
+#process.crawl(WikipediaSpider, languages)
+
+#process.start()
