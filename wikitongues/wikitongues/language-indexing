@@ -26,12 +26,12 @@ def process_site(site_tuple):
     for site_lang_page_item in site_language_pages_items:
         site_languages.append(Language(config['language_codes'][site_lang_page_item[0]], site_lang_page_item[0], config[site_tuple[1]]['root'] + site_lang_page_item[1]))
     
-    tree = os.listdir('wikitongues/wikitongues/spiders')
+    spiders_dir_tree = os.listdir('wikitongues/wikitongues/spiders')
 
-    for t in tree:
+    for t in spiders_dir_tree:
         if t.__contains__(site_tuple[0]):
-            myClass = getattr(importlib.import_module('spiders.' + t[:-3]), config['spiders'][site_tuple[0]])
-            process.crawl(myClass, site_languages)
+            spiderClass = getattr(importlib.import_module('spiders.' + t[:-3]), config['spiders'][site_tuple[0]])
+            process.crawl(spiderClass, site_languages)
             process.start()
             
 
